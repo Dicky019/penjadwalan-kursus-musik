@@ -1,15 +1,18 @@
 <script lang="ts">
-	import type { PageData } from './$types';
-
-	export let data: PageData;
+	import photo from '$lib/images/photo.avif';
 </script>
 
-<div class="container">
-	<div class="grid">
-		<h1>adsad</h1>
-		<img
-			src="https://picocss.com/examples/company/assets/ashim-d-silva-3Ijt7UkSBYE-unsplash-1500x750.jpg"
-			alt=""
-		/>
+<div class="hero min-h-screen" style="background-image: url({photo});">
+	<div class="hero-overlay bg-opacity-90" />
+	<div class="hero-content text-center text-neutral-content">
+		<div class="max-w-xl">
+			<h1 class="mb-5 sm:text-6xl text-5xl font-bold">Theo Music School</h1>
+			<p class="mb-5">
+				Theo Music School merupakan salah satu tempat kursus musik yang beralamat di Jl. Daeng
+				Ramang, kompleks perumahan rammang royal regency (ERTIGA) Blok.B No.5, yang menyediakan jasa
+				dan beberapa fasilitas kursus musik.
+			</p>
+			<a class="btn btn-primary" href="/login">Get Started</a>
+		</div>
 	</div>
 </div>

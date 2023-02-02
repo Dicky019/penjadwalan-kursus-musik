@@ -10,16 +10,57 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model user {
-  id       Int      @id @default(autoincrement())
-  fullname String
-  email    String
+model Admin {
+  id       Int    @id @default(autoincrement())
+  username String
   password String
-  role     RoleUser @default(Siswa)
 }
 
-enum RoleUser {
-  Admin
-  Guru
-  Siswa
+model Siswa {
+  id           Int          @id @default(autoincrement())
+  fullName     String
+  username     String       @unique
+  password     String
+  alamat       String
+  ttl          DateTime     @default(now())
+  jenisKelamin JenisKelamin
+  Jadwal       Jadwal[]
+}
+
+model Guru {
+  id           Int          @id @default(autoincrement())
+  fullName     String
+  username     String       @unique
+  password     String
+  alamat       String
+  ttl          DateTime     @default(now())
+  jenisKelamin JenisKelamin
+  Jadwal       Jadwal[]
+}
+
+enum JenisKelamin {
+  LakiLaki
+  Perempuan
+}
+
+enum KategoriKursus {
+  Keyboard
+  Drum
+  Gitar
+}
+
+enum Ruangan {
+  Satu
+  Dua
+  Tiga
+}
+
+model Jadwal {
+  id              Int      @id @default(autoincrement())
+  ruangan         Ruangan
+  waktu           DateTime
+  keteranganMasuk Boolean  @default(true)
+  guru            Guru     @relation(fields: [guruId], references: [id])
+  guruId          Int
+  siswa           Siswa[]
 }
