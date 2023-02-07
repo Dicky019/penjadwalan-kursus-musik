@@ -46,12 +46,13 @@
 					};
 				}}
 			>
-				<label for="email" class="label">Email</label>
+				<label for="username" class="label">Username</label>
 				<input
-					type="email"
-					placeholder="example@mail.com"
-					id="email"
-					name="email"
+					type="username"
+					placeholder="example"
+					id="username"
+					name="username"
+					required
 					class="input input-bordered input-primary w-full mb-1"
 				/>
 				<label for="password" class="label">Password</label>
@@ -60,13 +61,17 @@
 					placeholder="password"
 					id="password"
 					name="password"
+					required
 					class="input input-bordered input-primary w-full mb-1"
 				/>
 
-				<label class="label cursor-pointer">
-					<span class="label-text">Remember me</span>
-					<input type="checkbox" class="toggle toggle-primary" name="remember" />
-				</label>
+				<label for="role" class="label">Role</label>
+
+				<select class="select select-primary w-full mb-2"  id="role" name="role">
+					<option value="Admin">Admin</option>
+					<option value="Guru">Guru</option>
+					<option selected value="Siswa">Siswa</option>
+				</select>
 
 				<input type="submit" value="Login" class="btn btn-block mt-10" disabled={loading} />
 			</form>
