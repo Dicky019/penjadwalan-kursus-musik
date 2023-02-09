@@ -9,23 +9,8 @@ export const load: PageServerLoad = async () => {
 
 export const actions: Actions = {
 	default({ cookies }) {
-		// eat the cookie
-		// cookies.set('role', '', {
-		// 	path: '/',
-		// 	expires: new Date(0)
-		// });
-
-		// cookies.set('username', '', {
-		// 	path: '/',
-		// 	expires: new Date(0)
-		// });
-
-		cookies.delete('username', {
-			expires: new Date(0)
-		});
-		cookies.delete('role', {
-			expires: new Date(0)
-		});
+		cookies.delete('username');
+		cookies.delete('role');
 
 		// redirect the user
 		throw redirect(302, '/login');

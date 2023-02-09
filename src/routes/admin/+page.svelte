@@ -2,9 +2,13 @@
 	import { Header } from '$lib/components';
 </script>
 
+<svelte:head>
+	<title>Admin</title>
+</svelte:head>
+
 <Header
 	data={{
-		url: '/',
+		url: '/admin',
 		name: 'Admin'
 	}}
 />

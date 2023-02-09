@@ -2,6 +2,11 @@
 	import photo from '$lib/images/photo.avif';
 </script>
 
+
+<svelte:head>
+	<title>Home</title>
+</svelte:head>
+
 <div class="hero min-h-screen" style="background-image: url({photo});">
 	<div class="hero-overlay bg-opacity-90" />
 	<div class="hero-content text-center text-neutral-content">

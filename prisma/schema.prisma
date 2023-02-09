@@ -10,6 +10,8 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// Model
+
 model Admin {
   id       Int    @id @default(autoincrement())
   username String @unique
@@ -28,16 +30,30 @@ model Siswa {
 }
 
 model Guru {
-  id             Int              @id @default(autoincrement())
-  fullName       String
-  username       String           @unique
-  password       String
-  alamat         String
-  ttl            DateTime         @default(now())
-  jenisKelamin   JenisKelamin
-  Jadwal         Jadwal[]
-  kategotiKursus KategoriKursus[]
+  id           Int          @id @default(autoincrement())
+  fullName     String
+  username     String       @unique
+  password     String
+  alamat       String
+  ttl          DateTime     @default(now())
+  jenisKelamin JenisKelamin
+  Jadwal       Jadwal[]
 }
+
+model Jadwal {
+  id              Int            @id @default(autoincrement())
+  ruangan         Ruangan
+  waktu           DateTime
+  keteranganMasuk Boolean        @default(true)
+  guru            Guru           @relation(fields: [guruId], references: [id])
+  guruId          Int
+  siswa           Siswa[]
+  kategoriKursus  KategoriKursus
+}
+
+// End Model
+
+// Enum 
 
 enum JenisKelamin {
   LakiLaki
@@ -56,12 +72,4 @@ enum Ruangan {
   Tiga
 }
 
-model Jadwal {
-  id              Int      @id @default(autoincrement())
-  ruangan         Ruangan
-  waktu           DateTime
-  keteranganMasuk Boolean  @default(true)
-  guru            Guru     @relation(fields: [guruId], references: [id])
-  guruId          Int
-  siswa           Siswa[]
-}
+// End Enum 
