@@ -11,8 +11,6 @@
 	export let data: PageData;
 
 	const jadwal = data.siswa?.Jadwal ?? [];
-
-	const guru = data.jadwal;
 </script>
 
 <svelte:head>
@@ -26,10 +24,6 @@
 	}}
 />
 
-<div>26-5-9-25-6-11-24-7</div>
-
-{26+5}-{9+25}-{6+11}-{24+7}
-
 <div class="overflow-x-auto m-4">
 	<table class="table w-full ">
 		<!-- head -->
@@ -41,34 +35,30 @@
 				<th>Jam</th>
 				<th>Kategori Kursus</th>
 				<th>Keterangan Masuk</th>
-				<th />
 			</tr>
 		</thead>
 		<!-- head -->
 		<tbody>
 			<!-- row 1 -->
-			{#each jadwal as item, i}
+			{#each jadwal as { ruangan, waktu, kategoriKursus, keteranganMasuk, guru }, i}
 				<tr>
-					<td>{item.ruangan}</td>
+					<td>{ruangan}</td>
 					<td>
 						<div>
-							<div class="font-bold">{guru[i]?.fullName ?? '...'}</div>
-							<div class="text-sm opacity-50">{guru[i]?.username ?? '...'}</div>
+							<div class="font-bold">{guru.fullName ?? '...'}</div>
+							<div class="text-sm opacity-50">{guru.username ?? '...'}</div>
 						</div>
 					</td>
 					<td>
-						{dayjs(item.waktu).format('dddd MMMM YYYY')}
+						{dayjs(waktu).format('dddd MMMM YYYY')}
 					</td>
-					<td>{dayjs(item.waktu).format('HH:mm')}</td>
+					<td>{dayjs(waktu).format('HH:mm')}</td>
 					<td>
-						{item.kategoriKursus}
+						{kategoriKursus}
 					</td>
 					<td>
-						<input type="checkbox" checked={item.keteranganMasuk} class="checkbox" />
+						<input type="checkbox" disabled checked={keteranganMasuk} class="checkbox" />
 					</td>
-					<th>
-						<button class="btn btn-xs">change</button>
-					</th>
 				</tr>
 			{/each}
 			<!-- row 1 -->
@@ -83,7 +73,6 @@
 				<th>Jam</th>
 				<th>Kategori Kursus</th>
 				<th>Keterangan Masuk</th>
-				<th />
 			</tr>
 		</tfoot>
 		<!-- foot -->

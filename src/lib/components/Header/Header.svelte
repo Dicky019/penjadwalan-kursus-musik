@@ -7,16 +7,21 @@
 		url: '/',
 		name: 'Siswa'
 	};
+
+	export let hiddenUrl = true;
 </script>
 
 <div class="navbar bg-base-100">
 	<div class="flex-1">
-		<a href={data.url} class="btn btn-ghost normal-case text-xl">{data.name}</a>
+		{#if hiddenUrl}
+			<a href={data.url} class="btn btn-ghost normal-case text-xl">{data.name}</a>
+		{:else}
+			<label for="my-drawer-2" class="md:hidden btn btn-ghost normal-case text-xl">{data.name}</label>
+		{/if}
 	</div>
 
-
 	<form
-	class=""
+		class=""
 		action="/logout"
 		method="POST"
 		use:enhance={() => {
@@ -26,8 +31,8 @@
 			};
 		}}
 	>
-	<div class="tooltip tooltip-left" data-tip="Logout">
-		<button type="submit" class="btn btn-circle btn-outline"> <Logout variant="Linear" /></button>
-	</div>
+		<div class="tooltip tooltip-left" data-tip="Logout">
+			<button type="submit" class="btn btn-circle btn-outline"> <Logout variant="Linear" /></button>
+		</div>
 	</form>
 </div>
