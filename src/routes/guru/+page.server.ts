@@ -11,20 +11,36 @@ export const load = (async ({ cookies }) => {
 				select: {
 					alamat: true,
 					fullName: true,
-					Jadwal: {
+					jadwal: {
 						select: {
 							ruangan: true,
-							waktu: true,
+							hari: true,
+							jam: true,
 							kategoriKursus: true,
-							keteranganMasuk: true,
+							ruanganPenganti :true,
+							hariPenganti    :true,
+							jamPenganti     :true,
+							// keteranganMasuk: true,
+							guru : true,
+							id: true,
 							siswa: true
 						}
 					},
 					jenisKelamin: true,
-					ttl: true,
+					tempat: true,
+					tanggalLahir: true,
 					username: true
 				}
 			});
+
+			// id: number;
+			// ruangan: Ruangan;
+			// hari: string;
+			// jam: string;
+			// // keteranganMasuk: boolean;
+			// kategoriKursus: KategoriKursus;
+			// guru: Guru;
+			// siswa: Siswa[];
 
 		return {
 			guru: getGuru()

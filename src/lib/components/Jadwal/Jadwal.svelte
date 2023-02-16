@@ -1,13 +1,8 @@
 <script lang="ts">
+	import { Empty } from '$lib/components';
 	import { User } from '$lib/components';
 	import type { IChangeDetailSiswa, IJadwal } from '$lib/types';
-	import dayjs from 'dayjs';
-	import 'dayjs/locale/id';
-	import relativeTime from 'dayjs/plugin/relativeTime';
-	import { changeDetailSiswaWritable } from '$lib/stores/';
-
-	dayjs.locale('id');
-	dayjs.extend(relativeTime);
+	import { changeDetailSiswaWritable, deleteWithIdWritable } from '$lib/stores/';
 
 	export let jadwal: IJadwal[] = [];
 
@@ -21,44 +16,72 @@
 		changeDetailSiswaWritable.set(v);
 	}
 
-	change({
-		listSiswa: jadwal[0].siswa,
-		guru: jadwal[0].guru
-	});
+	if (jadwal && jadwal.length > 0) {
+		change({
+			listSiswa: jadwal[0].siswa,
+			guru: jadwal[0].guru,
+			hari: jadwal[0].hari,
+			jam: jadwal[0].jam,
+			ruangan: jadwal[0].ruangan
+		});
+	}
+
+	export let isGuru = false;
 </script>
 
-<div class="divider text-2xl font-medium mx-4 my-8">Jadwal</div>
-
-{#if jadwal}
+{#if jadwal && jadwal.length > 0}
+	<div class="divider text-2xl font-medium mx-4 my-8">Jadwal</div>
 	<div class="overflow-x-auto m-4">
 		<table class="table w-full">
 			<!-- head -->
 			<thead>
 				<tr>
+					{#if !isGuru}
+						<th>ID</th>
+					{/if}
+					<th>Hari</th>
 					<th>Ruangan</th>
-					<th>Waktu</th>
-					<th>Keterangan Masuk</th>
-					<th>Guru</th>
-					<th>Jumlah Siswa</th>
+					<th>Jam</th>
+					{#if isGuru}
+						<th>Hari Penganti</th>
+						<th>Ruangan Penganti</th>
+						<th>Jam Penganti</th>
+					{/if}
+					{#if !isGuru}
+						<th>Guru</th>
+					{/if}
 					<th>Kategori Kursus</th>
+					<th>Jumlah Siswa</th>
 					<th />
 				</tr>
 			</thead>
 			<!-- head -->
 			<tbody>
 				<!-- row 1 -->
-				{#each jadwal as { ruangan, waktu, keteranganMasuk, guru, siswa, kategoriKursus }, i}
+				{#each jadwal as { id, ruangan, hari, jam, guru, siswa, kategoriKursus, ruanganPenganti, hariPenganti, jamPenganti }, i}
 					<tr>
+						{#if !isGuru}
+							<td>{id}</td>
+						{/if}
+						<td>{hari}</td>
 						<td>{ruangan}</td>
+						<td>{jam}</td>
+						{#if isGuru}
+							<!-- <td>{hari}</td> -->
+							<td>{hariPenganti !== null ? hariPenganti : '-'}</td>
+							<td>{ruanganPenganti !== null ? ruanganPenganti : '-'}</td>
+							<td>{jamPenganti !== null ? jamPenganti : '-'}</td>
+						{/if}
+						{#if !isGuru}
+							<td>
+								<div>
+									<div class="font-bold">{guru.fullName ?? '...'}</div>
+									<div class="text-sm opacity-50">{guru.username ?? '...'}</div>
+								</div>
+							</td>
+						{/if}
 						<td>
-							{dayjs(waktu).format('MMMM D, YYYY HH:mm')}
-						</td>
-						<td><input type="checkbox" disabled checked={keteranganMasuk} class="checkbox" /></td>
-						<td>
-							<div>
-								<div class="font-bold">{guru.fullName ?? '...'}</div>
-								<div class="text-sm opacity-50">{guru.username ?? '...'}</div>
-							</div>
+							{kategoriKursus}
 						</td>
 						<td>
 							<div class="flex gap-x-3">
@@ -66,22 +89,30 @@
 								<button
 									on:click={() =>
 										change({
+											listSiswa: siswa,
 											guru: guru,
-											listSiswa: siswa
+											hari: hari,
+											jam: jam,
+											ruangan: ruangan
 										})}
 									class="btn btn-info btn-xs">detail</button
 								>
 							</div>
 						</td>
 						<td>
-							{kategoriKursus}
-						</td>
-						<td>
-							<div class="flex">
-								<button class="btn btn-warning btn-xs">change</button>
-								<div class="divider divider-horizontal" />
-								<label for="my-modal-6" class="btn btn-error btn-xs">delete</label>
-							</div>
+							<a
+								href="/{isGuru ? 'guru/change/' : 'admin/jadwal/'}{id}"
+								class="btn btn-warning btn-xs mr-1">{isGuru ? 'Ganti Jadwal' : 'Change'}</a
+							>
+							{#if !isGuru}
+								<button
+									on:click={() =>
+										deleteWithIdWritable.set({
+											value: id,
+											delete: 'Jadwal'
+										})}><label class="btn btn-error btn-xs" for="my-modal-6">delete</label></button
+								>
+							{/if}
 						</td>
 					</tr>
 				{/each}
@@ -91,12 +122,22 @@
 			<!-- foot -->
 			<tfoot>
 				<tr>
+					{#if !isGuru}
+						<th>ID</th>
+					{/if}
+					<th>Hari</th>
 					<th>Ruangan</th>
-					<th>Waktu</th>
-					<th>Keterangan Masuk</th>
-					<th>Guru</th>
-					<th>Jumlah Siswa</th>
+					<th>Jam</th>
+					{#if isGuru}
+						<th>Hari Penganti</th>
+						<th>Ruangan Penganti</th>
+						<th>Jam Penganti</th>
+					{/if}
+					{#if !isGuru}
+						<th>Guru</th>
+					{/if}
 					<th>Kategori Kursus</th>
+					<th>Jumlah Siswa</th>
 					<th />
 				</tr>
 			</tfoot>
@@ -106,26 +147,28 @@
 
 	<User
 		user={changeDetailSiswa.listSiswa}
-		title="Detail Siswa : {changeDetailSiswa.guru.username}"
+		title="Detail Siswa Ruangan {changeDetailSiswa.ruangan} : {changeDetailSiswa.hari}, {changeDetailSiswa.jam} | {changeDetailSiswa
+			.guru.username}"
 		action={false}
+		{isGuru}
 	/>
+
+	{#if !isGuru}
+		<a href="/admin/jadwal" class="btn btn-circle lg:btn-lg fixed z-90 bottom-10 right-8">
+			<svg
+				viewBox="0 0 20 20"
+				enable-background="new 0 0 20 20"
+				class="w-6 h-6 lg:w-9 lg:h-9 inline-block"
+			>
+				<path
+					fill="#FFFFFF"
+					d="M16,10c0,0.553-0.048,1-0.601,1H11v4.399C11,15.951,10.553,16,10,16c-0.553,0-1-0.049-1-0.601V11H4.601
+					C4.049,11,4,10.553,4,10c0-0.553,0.049-1,0.601-1H9V4.601C9,4.048,9.447,4,10,4c0.553,0,1,0.048,1,0.601V9h4.399
+					C15.952,9,16,9.447,16,10z"
+				/>
+			</svg>
+		</a>
+	{/if}
 {:else}
-	"text"
+	<Empty empty={'Jadwal Kosong'} href="/admin/jadwal" isAdmin={false} />
 {/if}
-
-<!-- The button to open modal -->
-
-<!-- Put this part before </body> tag -->
-<input type="checkbox" id="my-modal-6" class="modal-toggle" />
-<div class="modal modal-bottom sm:modal-middle">
-	<div class="modal-box">
-		<h3 class="font-bold text-lg">Congratulations random Internet user!</h3>
-		<p class="py-4">
-			You've been selected for a chance to get one year of subscription to use Wikipedia for free!
-		</p>
-		<div class="modal-action">
-			<label for="my-modal-6" class="btn flex-1 btn-error">Yes</label>
-			<label for="my-modal-6" class="btn flex-1">No</label>
-		</div>
-	</div>
-</div>

@@ -16,7 +16,7 @@
 		{#if hiddenUrl}
 			<a href={data.url} class="btn btn-ghost normal-case text-xl">{data.name}</a>
 		{:else}
-			<label for="my-drawer-2" class="md:hidden btn btn-ghost normal-case text-xl">{data.name}</label>
+			<label for="my-drawer-2" class="lg:hidden btn btn-ghost normal-case text-xl">{data.name}</label>
 		{/if}
 	</div>
 

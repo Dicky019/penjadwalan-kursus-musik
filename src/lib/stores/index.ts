@@ -1,5 +1,4 @@
-import { drawerContentWritable, changeDetailSiswaWritable,type IDrawerContent } from './admin/admin';
+import { drawerContentWritable, changeDetailSiswaWritable , deleteWithIdWritable } from './admin/admin';
 
-export { drawerContentWritable ,changeDetailSiswaWritable};
+export { drawerContentWritable ,changeDetailSiswaWritable , deleteWithIdWritable};
 
-export type { IDrawerContent };

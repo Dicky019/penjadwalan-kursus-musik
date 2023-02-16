@@ -11,14 +11,14 @@ export const load: PageServerLoad = async ({ cookies }) => {
 };
 
 export const actions: Actions = {
-	default: async ({ request, cookies, }) => {
-		const { username, password, role, remember } = Object.fromEntries(await request.formData());
+	default: async ({ request, cookies }) => {
+		const { username, password, role } = Object.fromEntries(await request.formData());
 
-		console.log({ username, password, role, remember });
+		// console.log({ username, password, role, remember });
 
 		let user: Admin | Guru | Siswa | null = null;
 
-		function setCookies(role: string,username:string) {
+		function setCookies(role: string, username: string) {
 			cookies.set('role', role, {
 				path: '/',
 				httpOnly: true,
@@ -48,7 +48,7 @@ export const actions: Actions = {
 			if (!checkPassword) {
 				throw error(401, 'Email address or password not valid');
 			}
-			setCookies('Admin',user.username);
+			setCookies('Admin', user.username);
 		} else if (role === 'Guru') {
 			user = await prisma.guru.findUnique({
 				where: {
@@ -62,7 +62,7 @@ export const actions: Actions = {
 			if (!checkPassword) {
 				throw error(401, 'Email address or password not valid');
 			}
-			setCookies('Guru',user.username);
+			setCookies('Guru', user.username);
 		} else if (role === 'Siswa') {
 			user = await prisma.siswa.findUnique({
 				where: {
@@ -76,7 +76,7 @@ export const actions: Actions = {
 			if (!checkPassword) {
 				throw error(401, 'Email address or password not valid');
 			}
-			setCookies('Siswa',user.username);
+			setCookies('Siswa', user.username);
 		}
 
 		return { username: username };

@@ -1,11 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import toast from 'svelte-french-toast';
-	import type { PageData } from './$types';
-
-	// export let data: PageData;
-
-	// export let form: FormData;
 
 	let loading = false;
 
@@ -26,7 +21,9 @@
 			<form
 				method="post"
 				use:enhance={({ form }) => {
+					loading = true
 					return async ({ result, update }) => {
+
 						switch (result.type) {
 							case 'success':
 								toast.success(`Selamat Datang ${result.data?.username}`);
@@ -43,6 +40,7 @@
 								await update();
 								break;
 						}
+						loading = false
 					};
 				}}
 			>
@@ -73,7 +71,7 @@
 					<option selected value="Siswa">Siswa</option>
 				</select>
 
-				<input type="submit" value="Login" class="btn btn-block mt-10" disabled={loading} />
+				<input type="submit" value="Login" class="btn btn-block mt-10 {loading ? 'loading' : ''}" />
 			</form>
 		</div>
 	</div>

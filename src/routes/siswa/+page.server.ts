@@ -4,25 +4,26 @@ import type { PageServerLoad } from './$types';
 export const load = (async ({ cookies }) => {
 	if (cookies.get('username')) {
 		const getJadwalSiswa = async () =>
-			await prisma.siswa.findUniqueOrThrow({
+			await prisma.siswa.findUnique({
 				where: {
 					username: cookies.get('username')
 				},
 				select: {
 					alamat: true,
 					fullName: true,
-					Jadwal: {
+					jadwal: {
 						select: {
 							ruangan: true,
-							waktu: true,
+							hari: true,
+							jam: true,
 							kategoriKursus: true,
-							keteranganMasuk: true,
+							// keteranganMasuk: true,
 							guru: true
 						}
 					},
 					jenisKelamin: true,
-					ttl: true,
-					// password: true,
+					tempat : true,
+					tanggalLahir :true,
 					username: true
 				}
 			});

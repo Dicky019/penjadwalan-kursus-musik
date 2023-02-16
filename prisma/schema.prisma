@@ -24,9 +24,10 @@ model Siswa {
   username     String       @unique
   password     String
   alamat       String
-  ttl          DateTime     @default(now())
+  tempat       String
+  tanggalLahir DateTime     @default(now())
   jenisKelamin JenisKelamin
-  Jadwal       Jadwal[]
+  jadwal       Jadwal[]
 }
 
 model Guru {
@@ -35,16 +36,20 @@ model Guru {
   username     String       @unique
   password     String
   alamat       String
-  ttl          DateTime     @default(now())
+  tempat       String
+  tanggalLahir DateTime     @default(now())
   jenisKelamin JenisKelamin
-  Jadwal       Jadwal[]
+  jadwal       Jadwal[]
 }
 
 model Jadwal {
   id              Int            @id @default(autoincrement())
   ruangan         Ruangan
-  waktu           DateTime
-  keteranganMasuk Boolean        @default(true)
+  hari            String
+  jam             String
+  ruanganPenganti Ruangan?
+  hariPenganti    String?
+  jamPenganti     String?
   guru            Guru           @relation(fields: [guruId], references: [id])
   guruId          Int
   siswa           Siswa[]

@@ -2,6 +2,29 @@
 
 Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
 
+## TODO
+
+- Mulai jam 17 - 21
+- jam :
+- 17 - 18
+- 18 - 19
+- 19 - 20
+- 20 - 21
+- Edit Guru
+
+ruangan : [1,2]
+value : [
+    {
+        hari : "senin",
+        jam : [
+            "17 - 18",
+            "18 - 19",
+            "19 - 20",
+            "20 - 21"
+        ]
+    }
+]
+
 ## Creating a project
 
 If you're seeing this, you've probably already done this step. Congrats!

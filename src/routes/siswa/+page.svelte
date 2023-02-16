@@ -1,16 +1,12 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import dayjs from 'dayjs';
-	import 'dayjs/locale/id';
-	import relativeTime from 'dayjs/plugin/relativeTime';
+
 	import { Header } from '$lib/components';
 
-	dayjs.locale('id');
-	dayjs.extend(relativeTime);
 
 	export let data: PageData;
 
-	const jadwal = data.siswa?.Jadwal ?? [];
+	const jadwal = data.siswa?.jadwal ?? [];
 </script>
 
 <svelte:head>
@@ -31,16 +27,15 @@
 			<tr>
 				<th>Ruangan</th>
 				<th>Nama Guru</th>
-				<th>Tanggal</th>
-				<th>Jam</th>
+				<th>Waktu</th>
 				<th>Kategori Kursus</th>
-				<th>Keterangan Masuk</th>
+				<!-- <th>Keterangan Masuk</th> -->
 			</tr>
 		</thead>
 		<!-- head -->
 		<tbody>
 			<!-- row 1 -->
-			{#each jadwal as { ruangan, waktu, kategoriKursus, keteranganMasuk, guru }, i}
+			{#each jadwal as { ruangan, hari, jam, kategoriKursus, guru }, i}
 				<tr>
 					<td>{ruangan}</td>
 					<td>
@@ -49,16 +44,16 @@
 							<div class="text-sm opacity-50">{guru.username ?? '...'}</div>
 						</div>
 					</td>
-					<td>
-						{dayjs(waktu).format('dddd MMMM YYYY')}
-					</td>
-					<td>{dayjs(waktu).format('HH:mm')}</td>
+					
+					<td>{`${hari}, ${jam}`}</td>
+					<!-- <td>{dayjs(waktu).format('dddd, HH:mm')}</td> -->
+						
 					<td>
 						{kategoriKursus}
 					</td>
-					<td>
+					<!-- <td>
 						<input type="checkbox" disabled checked={keteranganMasuk} class="checkbox" />
-					</td>
+					</td> -->
 				</tr>
 			{/each}
 			<!-- row 1 -->
@@ -69,10 +64,9 @@
 			<tr>
 				<th>Ruangan</th>
 				<th>Nama Guru</th>
-				<th>Tanggal</th>
-				<th>Jam</th>
+				<th>Waktu</th>
 				<th>Kategori Kursus</th>
-				<th>Keterangan Masuk</th>
+				<!-- <th>Keterangan Masuk</th> -->
 			</tr>
 		</tfoot>
 		<!-- foot -->
