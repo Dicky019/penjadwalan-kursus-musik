@@ -158,6 +158,10 @@
 	// console.log({ listJadwalsKosong });
 </script>
 
+<svelte:head>
+	<title>Change Jadwal | {data.jadwal?.guru.username}</title>
+</svelte:head>
+
 <div class="flex justify-center my-14">
 	<form method="post" class="w-[48rem] mx-4 flex flex-col">
 		<a href="/admin/" data-sveltekit-reload class="btn btn-circle my-4"

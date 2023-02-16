@@ -22,7 +22,8 @@
 		}
 	};
 
-	const jadwal: IJadwal[] = (data?.guru?.jadwal ?? []).sort((a, b) => {
+	let jadwal: IJadwal[] = (data?.guru?.jadwal ?? [])
+	jadwal=jadwal.sort((a, b) => {
 		const n1 = getHari(a.hari);
 		const n2 = getHari(b.hari);
 		return n1 - n2;
