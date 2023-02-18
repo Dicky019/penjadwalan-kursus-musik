@@ -145,7 +145,7 @@
 		// return val;
 	};
 
-	// getJadwalDiHapus();
+	getJadwalDiHapus();
 
 	$: getJadwalKosong = (limit: number | undefined = undefined) => {
 		const value = hari !== 'Semua' ? jadwalKosong.filter((v) => v.hari === hari) : jadwalKosong;
