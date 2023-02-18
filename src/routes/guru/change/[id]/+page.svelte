@@ -107,7 +107,7 @@
 		...jadwalSabtu
 	];
 
-	console.log({ jadwalKosong });
+	// console.log({ jadwalKosong });
 
 	const getJadwalDiHapus = () => {
 		let val = data.jadwals?.filter((value) => {

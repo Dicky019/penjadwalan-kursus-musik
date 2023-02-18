@@ -2,8 +2,8 @@ import type { IFilterJadwalKosong, IJadwal } from '$lib/types';
 import type { Ruangan } from '@prisma/client';
 import type { Actions, PageServerLoad } from './$types';
 
-export const load = (async ({ cookies, params }) => {
-	if (cookies.get('username')) {
+export const load = (async ({ params }) => {
+	// if (cookies.get('username')) {
 		const getJadwal: () => Promise<IJadwal | null> = async () =>
 			await prisma.jadwal.findUnique({
 				select: {
@@ -48,7 +48,7 @@ export const load = (async ({ cookies, params }) => {
 			jadwal: getJadwal(),
 			jadwals: getJadwals()
 		};
-	}
+	// }
 }) satisfies PageServerLoad;
 
 export const actions: Actions = {
