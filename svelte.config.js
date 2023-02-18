@@ -8,9 +8,7 @@ const config = {
 	preprocess: vitePreprocess(),
 
 	kit: {
-		adapter: adapter({
-			runtime: 'nodejs16.x'
-		})
+		adapter: adapter({})
 	}
 };
 
