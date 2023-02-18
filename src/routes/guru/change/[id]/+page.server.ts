@@ -4,8 +4,8 @@ import type { Actions, PageServerLoad } from './$types';
 
 export const load = (async ({ params }) => {
 	// if (cookies.get('username')) {
-		const getJadwal: () => Promise<IJadwal | null> = async () =>
-			await prisma.jadwal.findUnique({
+		const getJadwal: () => Promise<IJadwal | null> =  () =>
+			 prisma.jadwal.findUnique({
 				select: {
 					id: true,
 					ruangan: true,
@@ -24,8 +24,8 @@ export const load = (async ({ params }) => {
 				}
 			});
 
-		const getJadwals: () => Promise<IJadwal[] | null> = async () =>
-			await prisma.jadwal.findMany({
+		const getJadwals: () => Promise<IJadwal[] | null> =  () =>
+			 prisma.jadwal.findMany({
 				select: {
 					id: true,
 					ruangan: true,

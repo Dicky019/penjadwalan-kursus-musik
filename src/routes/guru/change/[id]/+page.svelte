@@ -164,7 +164,7 @@
 
 <div class="flex justify-center my-14">
 	<form method="post" class="w-[48rem] mx-4 flex flex-col">
-		<a href="/admin/" data-sveltekit-reload class="btn btn-circle my-4"
+		<a href="/guru/" data-sveltekit-reload class="btn btn-circle my-4"
 			><svg
 				xmlns="http://www.w3.org/2000/svg"
 				fill="none"
