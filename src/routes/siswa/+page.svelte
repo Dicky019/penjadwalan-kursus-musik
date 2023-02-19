@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 
-	import { Header } from '$lib/components';
+	import { Header,Empty } from '$lib/components';
 
 	export let data: PageData;
 
@@ -19,6 +19,8 @@
 	}}
 />
 
+{#if jadwal && jadwal.length > 0}
+	
 <div class="overflow-x-auto m-4">
 	<table class="table w-full ">
 		<!-- head -->
@@ -90,3 +92,7 @@
     <span class="label-text">Remember me</span> 
     <input type="checkbox" checked="checked" class="checkbox" />
   </label> -->
+
+{:else}
+	<Empty isAdmin={false} empty={"Jadwal Kosong"}/>
+{/if}
