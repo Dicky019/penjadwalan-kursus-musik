@@ -17,6 +17,9 @@ export const load = (async ({ cookies }) => {
 							hari: true,
 							jam: true,
 							kategoriKursus: true,
+							hariPenganti: true,
+							jamPenganti : true,
+							ruanganPenganti :true,
 							// keteranganMasuk: true,
 							guru: true
 						}
