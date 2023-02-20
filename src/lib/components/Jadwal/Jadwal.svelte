@@ -170,5 +170,5 @@
 		</a>
 	{/if}
 {:else}
-	<Empty empty={'Jadwal Kosong'} href="/admin/jadwal" isAdmin={false} />
+	<Empty empty={'Jadwal Kosong'} href="/admin/jadwal" isAdmin={!isGuru} />
 {/if}

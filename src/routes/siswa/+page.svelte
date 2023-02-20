@@ -1,8 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 
-	import { Header } from '$lib/components';
-
+	import { Header,Empty } from '$lib/components';
 
 	export let data: PageData;
 
@@ -20,14 +19,21 @@
 	}}
 />
 
+{#if jadwal && jadwal.length > 0}
+	
 <div class="overflow-x-auto m-4">
 	<table class="table w-full ">
 		<!-- head -->
 		<thead>
 			<tr>
-				<th>Ruangan</th>
 				<th>Nama Guru</th>
-				<th>Waktu</th>
+				<th>Hari</th>
+				<th>Ruangan</th>
+				<th>Jam</th>
+				<th>Hari Penganti</th>
+				<th>Ruangan Penganti</th>
+				<th>Jam Penganti</th>
+				
 				<th>Kategori Kursus</th>
 				<!-- <th>Keterangan Masuk</th> -->
 			</tr>
@@ -35,19 +41,23 @@
 		<!-- head -->
 		<tbody>
 			<!-- row 1 -->
-			{#each jadwal as { ruangan, hari, jam, kategoriKursus, guru }, i}
+			{#each jadwal as { ruangan, hari, jam,ruanganPenganti, hariPenganti, jamPenganti, kategoriKursus, guru }, i}
 				<tr>
-					<td>{ruangan}</td>
 					<td>
 						<div>
 							<div class="font-bold">{guru.fullName ?? '...'}</div>
 							<div class="text-sm opacity-50">{guru.username ?? '...'}</div>
 						</div>
 					</td>
+					<td>{hari}</td>
+					<td>{ruangan}</td>
+					<td>{jam}</td>
+					<td>{hariPenganti}</td>
+					<td>{ruanganPenganti}</td>
+					<td>{jamPenganti}</td>
 					
-					<td>{`${hari}, ${jam}`}</td>
 					<!-- <td>{dayjs(waktu).format('dddd, HH:mm')}</td> -->
-						
+
 					<td>
 						{kategoriKursus}
 					</td>
@@ -62,9 +72,14 @@
 		<!-- foot -->
 		<tfoot>
 			<tr>
-				<th>Ruangan</th>
 				<th>Nama Guru</th>
-				<th>Waktu</th>
+				<th>Hari</th>
+				<th>Ruangan</th>
+				<th>Jam</th>
+				<th>Hari Penganti</th>
+				<th>Ruangan Penganti</th>
+				<th>Jam Penganti</th>
+				
 				<th>Kategori Kursus</th>
 				<!-- <th>Keterangan Masuk</th> -->
 			</tr>
@@ -77,3 +92,7 @@
     <span class="label-text">Remember me</span> 
     <input type="checkbox" checked="checked" class="checkbox" />
   </label> -->
+
+{:else}
+	<Empty isAdmin={false} empty={"Jadwal Kosong"}/>
+{/if}
