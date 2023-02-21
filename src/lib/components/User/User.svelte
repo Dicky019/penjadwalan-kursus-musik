@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { jsPDF } from 'jspdf';
+	import autoTable from 'jspdf-autotable';
 	import { Empty } from '$lib/components';
 	import { deleteWithIdWritable } from '$lib/stores';
 	import type { Guru, Siswa } from '@prisma/client';
@@ -6,6 +8,7 @@
 	import dayjs from 'dayjs';
 	import 'dayjs/locale/id';
 	import relativeTime from 'dayjs/plugin/relativeTime';
+	import FabButton from '../Button/FabButton.svelte';
 
 	dayjs.locale('id');
 	dayjs.extend(relativeTime);
@@ -30,13 +33,46 @@
 	// 	console.log({ show: isShowPassword[index] });
 	// };
 
-	export let isGuru = false
+	const onPdfUser = () => {
+		const doc = new jsPDF('p', 'pt');
+		const source = document.getElementById('content');
+
+		if (source == null) {
+			return;
+		}
+
+		const data = user.map(
+			({ fullName, username, alamat, jenisKelamin, tempat, tanggalLahir }, i) => [
+				i + 1,
+				fullName,
+				username,
+				alamat,
+				jenisKelamin,
+				`${tempat}, ${dayjs(tanggalLahir).format('MMMM D, YYYY')}`
+			]
+		);
+
+		autoTable(doc, {
+			head: [['No', 'Full Name', 'User Nama', 'Alamat', 'Jenis Kelamin', 'Tempat Tanggal Lahir']],
+			body: data,
+			didDrawPage: function (data) {
+				// Header
+				doc.setFontSize(20);
+				doc.setTextColor(40);
+				doc.text(title+ " Admin", data.settings.margin.left, 22);
+			}
+		});
+
+		doc.save(title+ " Admin");
+	};
+
+	export let isGuru = false;
 </script>
 
 {#if user && user.length > 0}
 	<div class="divider text-2xl font-medium mx-4 my-8">{title}</div>
 	<div class="overflow-x-auto m-4">
-		<table class="table w-full">
+		<table id="content" class="table w-full">
 			<!-- head -->
 			<thead>
 				<tr>
@@ -122,8 +158,7 @@
 		</table>
 	</div>
 
-	{#if !isGuru}
-		<a
+	<!-- <a
 			href="/admin/{title.toLowerCase()}"
 			class="btn btn-circle lg:btn-lg fixed z-90 bottom-10 right-8"
 		>
@@ -139,8 +174,8 @@
 					C15.952,9,16,9.447,16,10z"
 				/>
 			</svg>
-		</a>
-	{/if}
+		</a> -->
+	<FabButton onClick={onPdfUser} isAdmin={!isGuru} href="/admin/{title.toLowerCase()}" />
 {:else}
 	<Empty empty={title + ' Kosong'} href="/admin/{title.toLowerCase()}" />
 {/if}

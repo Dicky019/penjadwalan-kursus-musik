@@ -40,7 +40,7 @@ export const load = (async ({ cookies, params }) => {
 export const actions: Actions = {
 	default: async ({ request, params }) => {
 		try {
-			const { kategoriKursus, ruangan, jam, hari, guru, listSiswa } = Object.fromEntries(
+			const { kategoriKursus, ruangan, jam, hari, guru, listSiswa,valueListSiswaDisconect } = Object.fromEntries(
 				await request.formData()
 			);
 
@@ -53,6 +53,27 @@ export const actions: Actions = {
 					};
 				});
 
+			const DislistValueSiswa = valueListSiswaDisconect
+				.toString()
+				.split(', ')
+				.map((v) => {
+					return {
+						username: v
+					};
+				});
+
+				
+			await prisma.jadwal.update({
+					where: {
+						id: Number(params.id)
+					},
+					data:{
+						siswa: {
+							disconnect:DislistValueSiswa
+						}
+					}
+				});	
+
 			const jadwal = await prisma.jadwal.update({
 				where: {
 					id: Number(params.id)
@@ -63,14 +84,15 @@ export const actions: Actions = {
 					jam: jam.toString(),
 					ruangan: ruangan.toString() as Ruangan,
 					siswa: {
-						connect: listValueSiswa
+						connect: [...listValueSiswa],
+						
 					},
 					// keteranganMasuk: false,
 					guru: {
 						connect: {
 							username: guru.toString()
 						}
-					}
+					},
 				}
 			});
 
