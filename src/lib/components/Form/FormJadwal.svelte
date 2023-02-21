@@ -36,6 +36,15 @@
 		})
 		.join(', ');
 
+	let	valueListSiswaDisconect = listSiswaChecked
+		.filter(({ isSelect }) => {
+			return isSelect;
+		})
+		.map(({ siswa }) => {
+			return siswa.username;
+		})
+		.join(', ');
+
 	const raunganDanKategoriKursus = {
 		Satu: ['Keyboard', 'Gitar'],
 		Dua: ['Keyboard', 'Drum'],
@@ -46,7 +55,7 @@
 
 	$: kategoriKursus = raunganDanKategoriKursus[ruangan];
 
-	console.log(kategoriKursus);
+	console.log(kategoriKursus,valueListSiswa);
 </script>
 
 <svelte:head>
@@ -191,6 +200,7 @@
 
 		<div class="dropdown">
 			<div tabindex="-1" class="label">Daftar Siswa</div>
+			<input type="hidden" value={valueListSiswaDisconect} name="valueListSiswaDisconect">
 			<input
 				readonly
 				type="text"

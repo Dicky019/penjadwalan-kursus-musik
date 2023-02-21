@@ -15,12 +15,11 @@ export const load = (async ({ cookies }) => {
 
 export const actions: Actions = {
 	default: async ({ request }) => {
-
 		try {
 			const { kategoriKursus, ruangan, jam, hari, guru, listSiswa } = Object.fromEntries(
 				await request.formData()
 			);
-	
+
 			const listValueSiswa = listSiswa
 				.toString()
 				.split(', ')
@@ -29,7 +28,9 @@ export const actions: Actions = {
 						username: v
 					};
 				});
-	
+
+			console.log({listValueSiswa});
+
 			const jadwal = await prisma.jadwal.create({
 				data: {
 					kategoriKursus: kategoriKursus.toString() as KategoriKursus,
@@ -48,7 +49,7 @@ export const actions: Actions = {
 				}
 			});
 			console.log(jadwal);
-	
+
 			return {
 				error: false,
 				message: `Ruangan ${jadwal.ruangan} waktu ${jadwal.hari}, ${jadwal.jam} `
@@ -60,6 +61,5 @@ export const actions: Actions = {
 			};
 		}
 		// console.log(await request.formData());
-		
 	}
 };
