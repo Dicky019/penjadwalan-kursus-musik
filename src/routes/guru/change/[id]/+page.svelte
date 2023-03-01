@@ -210,7 +210,7 @@
 		<div class="text-2xl font-semibold mt-4 mb-2">Jadwal Sekarang</div>
 
 		<div class="w-full h-[3px] mb-3 bg-primary rounded-lg" />
-		
+
 		<div class="flex flex-wrap gap-3 justify-center ">
 			<div class="text-center border-2 rounded-md p-2 w-1/3 border-primary">
 				<div>Jadwal Normal :</div>
@@ -220,11 +220,15 @@
 				: {jadwal?.hari}, {jadwal?.jam}
 			</div>
 			<div class="text-center border-2 rounded-md p-2 w-1/3 border-primary">
-				<div>Jadwal Penganti :</div>
-				<span class="text-lg font-bold ">
-					{jadwal?.ruanganPenganti}
-				</span>
-				: {jadwal?.hariPenganti}, {jadwal?.jamPenganti}
+				{#if jadwal?.ruanganPenganti !== null}
+					<div>Jadwal Penganti :</div>
+					<span class="text-lg font-bold ">
+						{jadwal?.ruanganPenganti ?? ''}
+					</span>
+					: {jadwal?.hariPenganti ?? ''}, {jadwal?.jamPenganti ?? ''}
+				{:else}
+					<span class="font-bold "> Jadwal Pengganti Kosong </span>
+				{/if}
 			</div>
 		</div>
 		<div class="text-2xl font-semibold mt-4 mb-2">Jadwal Yang Paling Dekat</div>

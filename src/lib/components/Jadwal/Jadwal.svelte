@@ -74,21 +74,36 @@
 			return;
 		}
 
-		const data = jadwal.map(({ hari, ruangan, jam, guru, kategoriKursus, siswa,hariPenganti,jamPenganti,ruanganPenganti}, i) => [
-			i + 1,
-			hari,
-			ruangan,
-			jam,
-			hariPenganti,
-			ruanganPenganti,
-			jamPenganti,
-			`${guru.fullName}\n${guru.username}`,
-			kategoriKursus,
-			siswa.length,
-			siswa.map(({ username }) => {
-				return username;
-			})
-		]);
+		const data = jadwal.map(
+			(
+				{
+					hari,
+					ruangan,
+					jam,
+					guru,
+					kategoriKursus,
+					siswa,
+					hariPenganti,
+					jamPenganti,
+					ruanganPenganti
+				},
+				i
+			) => [
+				i + 1,
+				hari,
+				ruangan,
+				jam,
+				hariPenganti,
+				ruanganPenganti,
+				jamPenganti,
+				`${guru.fullName}\n${guru.username}`,
+				kategoriKursus,
+				siswa.length,
+				siswa.map(({ username }) => {
+					return username;
+				})
+			]
+		);
 
 		autoTable(doc, {
 			head: [
@@ -195,6 +210,14 @@
 									href="/{isGuru ? 'guru/change/' : 'admin/jadwal/'}{id}"
 									class="btn btn-warning btn-xs mr-1">{isGuru ? 'Ganti Jadwal' : 'Change'}</a
 								>
+								{#if isGuru && hariPenganti !== null }
+									<form class="" action="/guru" method="POST">
+										<input type="hidden" name="id" value={id} />
+										<button type="submit" class="btn btn-error btn-xs mt-2">
+											Hapus Jadwal Pengganti
+										</button>
+									</form>
+								{/if}
 								{#if !isGuru}
 									<button
 										on:click={() =>
@@ -202,7 +225,8 @@
 												value: id,
 												delete: 'Jadwal'
 											})}
-										><label class="btn btn-error btn-xs" for="my-modal-6">delete</label></button
+									>
+										<label class="btn btn-error btn-xs" for="my-modal-6">delete</label></button
 									>
 								{/if}
 							</td>
@@ -245,7 +269,7 @@
 			{isGuru}
 		/>
 
-		<FabButton onClick={!isGuru ?onPdfAdmin : onPdfGuru} isAdmin={!isGuru} href="admin/jadwal/" />
+		<FabButton onClick={!isGuru ? onPdfAdmin : onPdfGuru} isAdmin={!isGuru} href="admin/jadwal/" />
 	</div>
 {:else}
 	<Empty empty={'Jadwal Kosong'} href="/admin/jadwal" isAdmin={!isGuru} />

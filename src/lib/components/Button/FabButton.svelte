@@ -8,13 +8,13 @@
 
 <button
 	on:click={onClick}
-	class="btn btn-circle btn-success lg:btn-lg fixed z-90 bottom-28 right-8"
+	class="btn btn-circle btn-primary lg:btn-lg fixed z-90 bottom-28 right-8"
 >
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 0 24 24"
 		fill="currentColor"
-		class="w-6 h-6 fill-white"
+		class="w-6 h-6"
 	>
 		<path
 			fill-rule="evenodd"

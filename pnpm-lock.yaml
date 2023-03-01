@@ -21,7 +21,6 @@ specifiers:
   eslint-config-prettier: ^8.6.0
   eslint-plugin-svelte3: ^4.0.0
   hashids: ^2.2.10
-  iconsax-svelte: 0.0.1-alpha.11
   jspdf: ^2.5.1
   jspdf-autotable: ^3.5.28
   luxon: ^3.2.1
@@ -68,7 +67,6 @@ devDependencies:
   eslint: 8.34.0
   eslint-config-prettier: 8.6.0_eslint@8.34.0
   eslint-plugin-svelte3: 4.0.0_dbthnr4b2bdkhyiebwn7su3hnq
-  iconsax-svelte: 0.0.1-alpha.11
   postcss: 8.4.21
   prettier: 2.8.4
   prettier-plugin-svelte: 2.9.0_jrsxveqmsx2uadbqiuq74wlc4u
@@ -1906,11 +1904,6 @@ packages:
       debug: 4.3.4
     transitivePeerDependencies:
       - supports-color
-    dev: true
-
-  /iconsax-svelte/0.0.1-alpha.11:
-    resolution: {integrity: sha512-pgwKMuBjxV3x+WnJ3txbIews2Tkynujn73/yV/5/ML4xd3cese12BRjlHgwByOIFCVqGBEfs/WD+GMgfuXEeWQ==}
-    hasBin: true
     dev: true
 
   /ignore/5.2.4:
