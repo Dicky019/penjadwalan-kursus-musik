@@ -9,7 +9,7 @@ export const load: PageServerLoad = async () => {
 
 export const actions: Actions = {
 	async default({ cookies }) {
-		 cookies.delete('username');
+		cookies.delete('username');
 		cookies.delete('role');
 
 		// redirect the user

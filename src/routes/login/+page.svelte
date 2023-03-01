@@ -15,7 +15,7 @@
 	<div class="hero-overlay bg-opacity-90" />
 	<div class="hero-content text-center text-neutral-content" />
 	<div class="flex h-screen items-center justify-center ">
-		<div class="sm:w-[34rem] w-[95vw] sm:m-0 bg-white  rounded-xl shadow-lg p-8 sm:p-12">
+		<div class="sm:w-[34rem] w-[95vw] sm:m-0 bg-base-300  rounded-xl shadow-lg p-8 sm:p-12">
 			<h1 class="mb-1 text-5xl font-bold">Sign In</h1>
 			<h2 class="mb-4 text-xl">Please sign in to your account.</h2>
 			<form

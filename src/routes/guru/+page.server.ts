@@ -1,5 +1,5 @@
 import { prisma } from '$lib/server/prisma';
-import type { PageServerLoad } from './$types';
+import type { Actions, PageServerLoad } from './$types';
 
 export const load = (async ({ cookies }) => {
 	if (cookies.get('username')) {
@@ -47,3 +47,39 @@ export const load = (async ({ cookies }) => {
 		};
 	}
 }) satisfies PageServerLoad;
+
+
+export const actions: Actions = {
+	async default({ request }) {
+		try {
+			console.log('tess');
+			const { id } = Object.fromEntries(await request.formData());
+
+			const jadwalPenganti = await prisma.jadwal.update({
+				where: {
+					id: Number(id.toString())
+				},
+				data: {
+					jamPenganti: null,
+					hariPenganti: null,
+					ruanganPenganti: null
+				}
+			});
+
+            // redirect(301,"/guru")
+
+			return {
+				error: false,
+				message: `Jadwal Penganti ${jadwalPenganti.ruangan}`
+			};
+
+            
+		} catch (e) {
+			return {
+				error: true,
+				message: 'Ada Yang Salah'
+			};
+		}
+	}
+};
+
